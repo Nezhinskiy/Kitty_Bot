@@ -3,6 +3,7 @@ cachetools==4.2.2
 certifi==2022.6.15
 charset-normalizer==2.0.12
 idna==3.3
+isort==5.10.1
 python-dotenv==0.20.0
 python-telegram-bot==13.12
 pytz==2022.1
