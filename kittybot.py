@@ -11,10 +11,16 @@ token = os.getenv('TOKEN')
 updater = Updater(token=token)
 
 URL = 'https://api.thecatapi.com/v1/images/search'
+NEW_URL = 'https://api.thedogapi.com/v1/images/search'
 
 
 def get_new_image():
-    response = requests.get(URL).json()
+    try:
+        response = requests.get(URL)
+    except Exception as error:
+        print(error)
+        response = requests.get(NEW_URL)
+    response = response.json()
     random_cat = response[0].get('url')
     return random_cat
 
