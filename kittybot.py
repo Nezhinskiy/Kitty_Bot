@@ -11,7 +11,8 @@ load_dotenv()
 secret_token = os.getenv('TOKEN')
 
 logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    format='{asctime} - {name} - {levelname} - {message}',
+    style='{',
     level=logging.INFO
 )
 
@@ -20,8 +21,8 @@ NEW_URL = 'https://api.thedogapi.com/v1/images/search'
 
 
 def get_new_image():
-    """Получает нового котика или собачку,
-    если есть ошибка"""
+    """Получает нового котика или,
+    если есть ошибка, собачку"""
     try:
         response = requests.get(URL)
     except Exception as error:
