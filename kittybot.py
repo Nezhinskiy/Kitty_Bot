@@ -1,3 +1,4 @@
+import logging
 import os
 
 import requests
@@ -7,8 +8,12 @@ from telegram.ext import CommandHandler, Updater
 
 load_dotenv()
 
-token = os.getenv('TOKEN')
-updater = Updater(token=token)
+secret_token = os.getenv('TOKEN')
+
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
 
 URL = 'https://api.thecatapi.com/v1/images/search'
 NEW_URL = 'https://api.thedogapi.com/v1/images/search'
@@ -18,7 +23,7 @@ def get_new_image():
     try:
         response = requests.get(URL)
     except Exception as error:
-        print(error)
+        logging.error(f'Ошибка при запросе к основному API: {error}')
         response = requests.get(NEW_URL)
     response = response.json()
     random_cat = response[0].get('url')
