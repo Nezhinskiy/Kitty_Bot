@@ -20,6 +20,8 @@ NEW_URL = 'https://api.thedogapi.com/v1/images/search'
 
 
 def get_new_image():
+    """Получает нового котика или собачку,
+    если есть ошибка"""
     try:
         response = requests.get(URL)
     except Exception as error:
@@ -31,24 +33,28 @@ def get_new_image():
 
 
 def new_cat(update, context):
+    """Отправляет нового котика по команде"""
     chat = update.effective_chat
     context.bot.send_photo(chat.id, get_new_image())
 
 
 def wake_up(update, context):
+    """Отправляет приветственного котика и фразу
+    по команде"""
     chat = update.effective_chat
     name = update.message.chat.first_name
     button = ReplyKeyboardMarkup([['/newcat']], resize_keyboard=True)
 
     context.bot.send_message(
         chat_id=chat.id,
-        text='Привет, {}. Посмотри, какого котика я тебе нашёл'.format(name),
+        text=f'Привет, {name}. Посмотри, какого котика я тебе нашёл',
         reply_markup=button
     )
     context.bot.send_photo(chat.id, get_new_image())
 
 
 def main():
+    """Исполняемый код"""
     updater = Updater(token=secret_token)
     updater.dispatcher.add_handler(CommandHandler('start', wake_up))
     updater.dispatcher.add_handler(CommandHandler('newcat', new_cat))
