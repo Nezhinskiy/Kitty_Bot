@@ -1,1 +1,3 @@
-Этот бот отправляет котиков (или пёсиков) по команде
+# Kitty_Bot
+
+This telegram bot sends cats (or dogs) on request.
